@@ -1,0 +1,10 @@
+"app_name" = "Daily Note";
+"today_line" = "Today's Line";
+"today_placeholder" = "Record today in one sentence";
+"save" = "Save";
+"update" = "Update";
+"save_success" = "Save completed.";
+"update_success" = "Update completed.";
+"edit_limit_reached" = "You have already finished editing for today.";
+"history" = "History";
+"no_records" = "No records yet.";

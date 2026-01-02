@@ -1,0 +1,10 @@
+"app_name" = "하루 한 줄";
+"today_line" = "오늘의 한 줄";
+"today_placeholder" = "오늘을 한 문장으로 기록해보세요";
+"save" = "저장하기";
+"update" = "수정하기";
+"save_success" = "저장이 완료되었습니다.";
+"update_success" = "수정이 완료되었습니다.";
+"edit_limit_reached" = "오늘은 이미 수정을 완료했습니다.";
+"history" = "지난 기록";
+"no_records" = "아직 기록이 없습니다.";
