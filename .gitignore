@@ -42,3 +42,4 @@ Carthage/Build/
 .DS_Store
 *.swp
 *.lock
+.derivedData/

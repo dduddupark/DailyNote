@@ -123,12 +123,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		83248F8F2F3C7C40000288A3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		835E58712F07543400A1CF16 = {
 			isa = PBXGroup;
 			children = (
 				835E587C2F07543500A1CF16 /* DailyNote */,
 				835E588A2F07543500A1CF16 /* DailyNoteTests */,
 				835E58942F07543500A1CF16 /* DailyNoteUITests */,
+				83248F8F2F3C7C40000288A3 /* Frameworks */,
 				835E587B2F07543500A1CF16 /* Products */,
 			);
 			sourceTree = "<group>";
