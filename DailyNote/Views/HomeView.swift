@@ -3,6 +3,9 @@ import SwiftUI
 struct HomeView: View {
     @StateObject private var viewModel = HomeViewModel()
     @FocusState private var isTextFieldFocused: Bool
+    @FocusState private var isTitleFieldFocused: Bool
+    @State private var editingEntry: NoteEntry?
+    @State private var deletingEntryId: String?
     
     var body: some View {
         ZStack {
@@ -17,6 +20,11 @@ struct HomeView: View {
                             .foregroundColor(.secondary)
                         
                         VStack {
+                            TextField("title_placeholder", text: $viewModel.todayTitle)
+                                .focused($isTitleFieldFocused)
+                                .disabled(!viewModel.canEditToday)
+                                .font(.system(size: 16, weight: .semibold, design: .serif))
+                            
                             TextField("today_placeholder", text: $viewModel.todayContent, axis: .vertical)
                                 .lineLimit(3...5)
                                 .focused($isTextFieldFocused)
@@ -29,6 +37,7 @@ struct HomeView: View {
                                     Button(action: {
                                         viewModel.saveTodayEntry()
                                         isTextFieldFocused = false
+                                        isTitleFieldFocused = false
                                     }) {
                                         Text(viewModel.isTodayEntryExisted ? "update" : "save")
                                             .fontWeight(.semibold)
@@ -38,6 +47,7 @@ struct HomeView: View {
                                             .foregroundColor(.white)
                                             .cornerRadius(20)
                                     }
+                                    .disabled(viewModel.isLoading)
                                     .padding(.top, 8)
                                 }
                             } else {
@@ -73,10 +83,34 @@ struct HomeView: View {
                                             Text(entry.id)
                                                 .font(.caption)
                                                 .foregroundColor(.secondary)
+                                            if !entry.title.isEmpty {
+                                                Text(entry.title)
+                                                    .font(.headline)
+                                            }
                                             Text(entry.content)
                                                 .font(.body)
+                                                .foregroundColor(.primary.opacity(0.90))
                                         }
                                         Spacer()
+                                        HStack(spacing: 10) {
+                                            Button {
+                                                editingEntry = entry
+                                            } label: {
+                                                Image(systemName: "pencil")
+                                                    .imageScale(.medium)
+                                            }
+                                            .buttonStyle(.plain)
+                                            .foregroundColor(.blue)
+
+                                            Button {
+                                                deletingEntryId = entry.id
+                                            } label: {
+                                                Image(systemName: "trash")
+                                                    .imageScale(.medium)
+                                            }
+                                            .buttonStyle(.plain)
+                                            .foregroundColor(.red)
+                                        }
                                     }
                                     .padding()
                                     .background(Color(uiColor: .secondarySystemGroupedBackground))
@@ -113,12 +147,49 @@ struct HomeView: View {
             }
         }
         .navigationTitle("app_name")
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                NavigationLink {
+                    SearchView()
+                } label: {
+                    Image(systemName: "magnifyingglass")
+                }
+                .accessibilityLabel(Text("search"))
+            }
+        }
+        .sheet(item: $editingEntry) { entry in
+            EntryEditorView(
+                entry: entry,
+                onCancel: { editingEntry = nil },
+                onSave: { title, content in
+                    let updated = NoteEntry(
+                        id: entry.id,
+                        title: title,
+                        content: content,
+                        updatedAt: entry.updatedAt,
+                        editCount: entry.editCount
+                    )
+                    viewModel.updateEntry(updated)
+                    editingEntry = nil
+                }
+            )
+        }
+        .alert("delete_confirm_title", isPresented: Binding(
+            get: { deletingEntryId != nil },
+            set: { if !$0 { deletingEntryId = nil } }
+        )) {
+            Button("cancel", role: .cancel) { deletingEntryId = nil }
+            Button("delete", role: .destructive) {
+                if let id = deletingEntryId {
+                    viewModel.deleteEntry(dateId: id)
+                }
+                deletingEntryId = nil
+            }
+        } message: {
+            Text("delete_confirm_message")
+        }
         .onAppear {
             viewModel.loadData()
         }
     }
-}
-
-#Preview {
-    HomeView()
 }
