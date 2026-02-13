@@ -42,12 +42,18 @@ class HomeViewModel: ObservableObject {
                 self.todayContent = entry.content
                 self.canEditToday = entry.editCount < 9
                 self.isTodayEntryExisted = true
+                
+                // Update Reminders: Today is written
+                NotificationService.shared.updateDailyReminders(isTodayWritten: true)
             } else {
                 self.todayEntry = nil
                 self.todayTitle = ""
                 self.todayContent = ""
                 self.canEditToday = true
                 self.isTodayEntryExisted = false
+                
+                // Update Reminders: Today is NOT written
+                NotificationService.shared.updateDailyReminders(isTodayWritten: false)
             }
         } catch {
             print("Fetch failed: \(error.localizedDescription)")
@@ -92,6 +98,10 @@ class HomeViewModel: ObservableObject {
                 self.isTodayEntryExisted = true
                 self.canEditToday = entry.editCount < 9
                 showToast(message: wasExisted ? "update_success" : "save_success")
+                
+                // Update Reminders: Today is written
+                NotificationService.shared.updateDailyReminders(isTodayWritten: true)
+                
                 await fetchAllEntries()
             } catch {
                 showToast(message: "save_failed")
@@ -111,6 +121,9 @@ class HomeViewModel: ObservableObject {
                     self.todayContent = ""
                     self.isTodayEntryExisted = false
                     self.canEditToday = true
+                    
+                    // Update Reminders: Today is NOT written (deleted)
+                    NotificationService.shared.updateDailyReminders(isTodayWritten: false)
                 }
                 showToast(message: "delete_success")
                 await fetchAllEntries()

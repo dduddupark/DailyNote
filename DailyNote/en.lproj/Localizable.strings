@@ -28,3 +28,4 @@
 "days" = "days";
 "count_unit" = "";
 "close" = "Close";
+"daily_reminder_message" = "You haven't written your line today 👀";
