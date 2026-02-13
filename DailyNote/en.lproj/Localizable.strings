@@ -15,3 +15,17 @@
 "analyze_all" = "Analyze Past Records";
 "analyzing_past_data" = "Analyzing past data...";
 "ai_emotion_tooltip" = "Emotion analyzed by AI.";
+"delete_confirm_title" = "Delete Confirmation";
+"delete_confirm_message" = "Are you sure you want to delete this record?";
+"cancel" = "Cancel";
+"delete" = "Delete";
+"edit_entry" = "Edit Entry";
+"statistics" = "Statistics";
+"activity_log" = "Activity Log";
+"current_streak" = "Current Streak";
+"longest_streak" = "Best Streak";
+"total_entries" = "Total Entries";
+"days" = "days";
+"count_unit" = "";
+"close" = "Close";
+"daily_reminder_message" = "You haven't written your line today 👀";

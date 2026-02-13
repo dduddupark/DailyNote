@@ -23,6 +23,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct DailyNoteApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @State private var showHome: Bool = false
+    @Environment(\.scenePhase) private var scenePhase // Monitor app state
     
     var body: some Scene {
         WindowGroup {
@@ -36,6 +37,11 @@ struct DailyNoteApp: App {
                         }
                     }
                     .toolbar(.hidden, for: .navigationBar)
+                }
+            }
+            .onChange(of: scenePhase) { phase in
+                if phase == .active {
+                    NotificationService.shared.requestPermission()
                 }
             }
         }

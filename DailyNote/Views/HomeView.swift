@@ -6,6 +6,7 @@ struct HomeView: View {
     @FocusState private var isTitleFieldFocused: Bool
     @State private var editingEntry: NoteEntry?
     @State private var deletingEntryId: String?
+    @State private var showStats = false
     
     var body: some View {
         ZStack {
@@ -24,9 +25,15 @@ struct HomeView: View {
                                 .focused($isTitleFieldFocused)
                                 .disabled(!viewModel.canEditToday)
                                 .font(.system(size: 16, weight: .semibold, design: .serif))
+                                .onChange(of: viewModel.todayTitle) { newValue in
+                                    if newValue.count > 20 {
+                                        viewModel.todayTitle = String(newValue.prefix(20))
+                                    }
+                                }
                             
                             TextField("today_placeholder", text: $viewModel.todayContent, axis: .vertical)
-                                .lineLimit(3...5)
+                                .lineLimit(3...10) // Increase max lines
+                                .frame(maxHeight: 300) // Ensure it doesn't grow indefinitely, triggering scroll
                                 .focused($isTextFieldFocused)
                                 .disabled(!viewModel.canEditToday)
                                 .font(.system(size: 18, weight: .medium, design: .serif))
@@ -119,6 +126,12 @@ struct HomeView: View {
                 HStack {
                     Menu {
                         Button {
+                            showStats = true
+                        } label: {
+                            Label("statistics", systemImage: "chart.bar.xaxis")
+                        }
+                        
+                        Button {
                             viewModel.analyzeAllEntries()
                         } label: {
                             Label("analyze_all", systemImage: "sparkles")
@@ -135,6 +148,9 @@ struct HomeView: View {
                     .accessibilityLabel(Text("search"))
                 }
             }
+        }
+        .sheet(isPresented: $showStats) {
+            StatsView(isPresented: $showStats, entries: viewModel.entries)
         }
         .sheet(item: $editingEntry) { entry in
             EntryEditorView(

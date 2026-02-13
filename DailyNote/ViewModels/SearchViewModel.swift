@@ -1,6 +1,7 @@
 import Foundation
+import Combine
+import SwiftUI
 
-@MainActor
 @MainActor
 final class SearchViewModel: ObservableObject {
     @Published var query: String = ""
@@ -19,7 +20,6 @@ final class SearchViewModel: ObservableObject {
         }
     }
 
-    @MainActor
     func load() {
         isLoading = true
         Task {

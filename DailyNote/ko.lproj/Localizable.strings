@@ -15,3 +15,17 @@
 "analyze_all" = "지난 기록 분석하기";
 "analyzing_past_data" = "지난 데이터를 분석 중입니다...";
 "ai_emotion_tooltip" = "AI가 분석한 감정입니다.";
+"delete_confirm_title" = "삭제 확인";
+"delete_confirm_message" = "이 기록을 정말 삭제하시겠습니까?";
+"cancel" = "취소";
+"delete" = "삭제";
+"edit_entry" = "기록 수정";
+"statistics" = "활동 통계";
+"activity_log" = "활동 잔디";
+"current_streak" = "현재 연속 기록";
+"longest_streak" = "최장 연속 기록";
+"total_entries" = "총 기록";
+"days" = "일";
+"count_unit" = "개";
+"close" = "닫기";
+"daily_reminder_message" = "오늘 한 줄 아직 안 썼어요 👀";
