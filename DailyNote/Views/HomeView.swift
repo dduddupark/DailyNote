@@ -78,44 +78,11 @@ struct HomeView: View {
                         } else {
                             LazyVStack(alignment: .leading, spacing: 12) {
                                 ForEach(viewModel.entries) { entry in
-                                    HStack {
-                                        VStack(alignment: .leading, spacing: 4) {
-                                            Text(entry.id)
-                                                .font(.caption)
-                                                .foregroundColor(.secondary)
-                                            if !entry.title.isEmpty {
-                                                Text(entry.title)
-                                                    .font(.headline)
-                                            }
-                                            Text(entry.content)
-                                                .font(.body)
-                                                .foregroundColor(.primary.opacity(0.90))
-                                        }
-                                        Spacer()
-                                        HStack(spacing: 10) {
-                                            Button {
-                                                editingEntry = entry
-                                            } label: {
-                                                Image(systemName: "pencil")
-                                                    .imageScale(.medium)
-                                            }
-                                            .buttonStyle(.plain)
-                                            .foregroundColor(.blue)
-
-                                            Button {
-                                                deletingEntryId = entry.id
-                                            } label: {
-                                                Image(systemName: "trash")
-                                                    .imageScale(.medium)
-                                            }
-                                            .buttonStyle(.plain)
-                                            .foregroundColor(.red)
-                                        }
-                                    }
-                                    .padding()
-                                    .background(Color(uiColor: .secondarySystemGroupedBackground))
-                                    .cornerRadius(12)
-                                    .padding(.horizontal)
+                                    NoteRowView(
+                                        entry: entry,
+                                        onEdit: { editingEntry = entry },
+                                        onDelete: { deletingEntryId = entry.id }
+                                    )
                                 }
                             }
                         }
@@ -149,12 +116,24 @@ struct HomeView: View {
         .navigationTitle("app_name")
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    SearchView()
-                } label: {
-                    Image(systemName: "magnifyingglass")
+                HStack {
+                    Menu {
+                        Button {
+                            viewModel.analyzeAllEntries()
+                        } label: {
+                            Label("analyze_all", systemImage: "sparkles")
+                        }
+                    } label: {
+                        Image(systemName: "ellipsis.circle")
+                    }
+                    
+                    NavigationLink {
+                        SearchView()
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                    .accessibilityLabel(Text("search"))
                 }
-                .accessibilityLabel(Text("search"))
             }
         }
         .sheet(item: $editingEntry) { entry in

@@ -8,3 +8,10 @@
 "edit_limit_reached" = "오늘은 이미 수정을 완료했습니다.";
 "history" = "지난 기록";
 "no_records" = "아직 기록이 없습니다.";
+"title_placeholder" = "제목을 입력하세요";
+"content_placeholder" = "내용을 입력하세요";
+"search_placeholder" = "검색어를 입력하세요";
+"search" = "검색하기";
+"analyze_all" = "지난 기록 분석하기";
+"analyzing_past_data" = "지난 데이터를 분석 중입니다...";
+"ai_emotion_tooltip" = "AI가 분석한 감정입니다.";

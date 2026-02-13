@@ -8,3 +8,10 @@
 "edit_limit_reached" = "You have already finished editing for today.";
 "history" = "History";
 "no_records" = "No records yet.";
+"title_placeholder" = "Enter title";
+"content_placeholder" = "Enter content";
+"search_placeholder" = "Enter search term";
+"search" = "Search";
+"analyze_all" = "Analyze Past Records";
+"analyzing_past_data" = "Analyzing past data...";
+"ai_emotion_tooltip" = "Emotion analyzed by AI.";

@@ -66,19 +66,24 @@ class HomeViewModel: ObservableObject {
             self.entries = unique
         } catch {
             print("Fetch entries error: \(error.localizedDescription)")
+            showToast(message: "Fetch Error: \(error.localizedDescription)")
         }
     }
     
     func saveTodayEntry() {
         isLoading = true
         let newEditCount = (todayEntry?.editCount ?? -1) + 1
-        let entry = NoteEntry(
+        var entry = NoteEntry(
             id: todayId,
             title: todayTitle,
             content: todayContent,
             updatedAt: todayId,
             editCount: newEditCount
         )
+        // AI Analysis
+        let analysis = NoteAnalysisService.shared.analyze(text: todayContent)
+        entry.emotion = analysis.emotion
+        entry.tags = analysis.tags
         Task {
             do {
                 try await FirestoreService.shared.saveEntry(entry)
@@ -118,13 +123,17 @@ class HomeViewModel: ObservableObject {
 
     func updateEntry(_ entry: NoteEntry) {
         isLoading = true
-        let updated = NoteEntry(
+        var updated = NoteEntry(
             id: entry.id,
             title: entry.title,
             content: entry.content,
             updatedAt: todayId,
             editCount: entry.editCount + 1
         )
+        // AI Analysis
+        let analysis = NoteAnalysisService.shared.analyze(text: entry.content)
+        updated.emotion = analysis.emotion
+        updated.tags = analysis.tags
         Task {
             do {
                 try await FirestoreService.shared.saveEntry(updated)
@@ -136,6 +145,7 @@ class HomeViewModel: ObservableObject {
                     self.isTodayEntryExisted = true
                 }
                 showToast(message: "update_success")
+                self.entries = [] // Force clear to trigger UI refresh
                 await fetchAllEntries()
             } catch {
                 showToast(message: "save_failed")
@@ -154,4 +164,34 @@ class HomeViewModel: ObservableObject {
             }
         }
     }
+    
+    func analyzeAllEntries() {
+        isLoading = true
+        showToast(message: "analyzing_past_data")
+        Task {
+            var updatedCount = 0
+            for entry in entries {
+                // Skip if already analyzed (optional, but user asked to apply)
+                // Let's re-analyze everything to be safe or if logic changed
+                
+                let analysis = NoteAnalysisService.shared.analyze(text: entry.content)
+                if entry.emotion != analysis.emotion || entry.tags != analysis.tags {
+                    var updated = entry
+                    updated.emotion = analysis.emotion
+                    updated.tags = analysis.tags
+                    
+                    do {
+                        try await FirestoreService.shared.saveEntry(updated)
+                        updatedCount += 1
+                    } catch {
+                        print("Failed to update entry \(entry.id): \(error)")
+                    }
+                }
+            }
+            showToast(message: "Analysis Complete: \(updatedCount) updated")
+            await fetchAllEntries()
+            isLoading = false
+        }
+    }
+
 }

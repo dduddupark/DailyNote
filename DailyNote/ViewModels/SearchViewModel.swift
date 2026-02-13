@@ -1,5 +1,7 @@
 import Foundation
 
+@MainActor
+@MainActor
 final class SearchViewModel: ObservableObject {
     @Published var query: String = ""
     @Published var isLoading: Bool = false
@@ -29,6 +31,34 @@ final class SearchViewModel: ObservableObject {
                 self.entries = []
             }
             self.isLoading = false
+        }
+    }
+    
+    func deleteEntry(dateId: String) {
+        Task {
+            do {
+                try await FirestoreService.shared.deleteEntry(dateId: dateId)
+                // Remove from local list
+                if let index = entries.firstIndex(where: { $0.id == dateId }) {
+                    entries.remove(at: index)
+                }
+            } catch {
+                print("Error deleting entry: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func updateEntry(_ entry: NoteEntry) {
+        Task {
+            do {
+                try await FirestoreService.shared.saveEntry(entry)
+                // Update local list
+                if let index = entries.firstIndex(where: { $0.id == entry.id }) {
+                    entries[index] = entry
+                }
+            } catch {
+                print("Error updating entry: \(error.localizedDescription)")
+            }
         }
     }
 }

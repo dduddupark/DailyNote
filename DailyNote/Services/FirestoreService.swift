@@ -34,8 +34,22 @@ class FirestoreService {
     func fetchEntries() async throws -> [NoteEntry] {
         guard let collection = entriesCollection else { throw AuthError.notAuthenticated }
         let snapshot = try await collection.order(by: "id", descending: true).getDocuments()
+        
+        print("DEBUG: Fetched \(snapshot.documents.count) documents.")
+        
         return snapshot.documents.compactMap { doc in
-            try? doc.data(as: NoteEntry.self)
+            do {
+                return try doc.data(as: NoteEntry.self)
+            } catch {
+                print("DEBUG: Failed to decode document \(doc.documentID): \(error)")
+                return nil
+            }
         }
+    }
+
+    func fetchRawCount() async throws -> Int {
+        guard let collection = entriesCollection else { throw AuthError.notAuthenticated }
+        let snapshot = try await collection.getDocuments()
+        return snapshot.count
     }
 }
