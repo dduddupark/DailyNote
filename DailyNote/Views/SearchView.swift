@@ -27,6 +27,7 @@ struct SearchView: View {
                             ForEach(viewModel.filteredEntries) { entry in
                                 NoteRowView(
                                     entry: entry,
+                                    showActions: false,
                                     onEdit: { editingEntry = entry },
                                     onDelete: { deletingEntryId = entry.id }
                                 )

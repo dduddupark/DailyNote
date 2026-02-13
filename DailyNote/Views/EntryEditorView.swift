@@ -36,8 +36,14 @@ struct EntryEditorView: View {
             Form {
                 Section {
                     TextField("title_placeholder", text: $title)
+                        .onChange(of: title) { newValue in
+                            if newValue.count > 20 {
+                                title = String(newValue.prefix(20))
+                            }
+                        }
                     TextField("content_placeholder", text: $content, axis: .vertical)
-                        .lineLimit(5...12)
+                        .lineLimit(5...15) // Limit max height to ensure scrolling
+                        .frame(minHeight: 150) // Ensure reasonable size
                 } header: {
                     Text(dateId)
                 }

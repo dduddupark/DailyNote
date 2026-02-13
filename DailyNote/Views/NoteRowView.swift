@@ -2,6 +2,7 @@ import SwiftUI
 
 struct NoteRowView: View {
     let entry: NoteEntry
+    var showActions: Bool = true
     let onEdit: () -> Void
     let onDelete: () -> Void
     
@@ -61,20 +62,22 @@ struct NoteRowView: View {
             
             Spacer()
             
-            HStack(spacing: 10) {
-                Button(action: onEdit) {
-                    Image(systemName: "pencil")
-                        .imageScale(.medium)
+            if showActions {
+                HStack(spacing: 10) {
+                    Button(action: onEdit) {
+                        Image(systemName: "pencil")
+                            .imageScale(.medium)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundColor(.blue)
+                    
+                    Button(action: onDelete) {
+                        Image(systemName: "trash")
+                            .imageScale(.medium)
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundColor(.red)
                 }
-                .buttonStyle(.plain)
-                .foregroundColor(.blue)
-                
-                Button(action: onDelete) {
-                    Image(systemName: "trash")
-                        .imageScale(.medium)
-                }
-                .buttonStyle(.plain)
-                .foregroundColor(.red)
             }
         }
         .padding()
