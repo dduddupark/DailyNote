@@ -39,9 +39,6 @@ struct SplashView: View {
                 self.isTimeFinished = true
                 self.checkReadyToMove()
             }
-            
-            // 2. 익명 로그인 시도
-            authService.signInAnonymously()
         }
         .onChange(of: authService.isAuthReady) { ready in
             if ready {

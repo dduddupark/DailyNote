@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.1017377259686-bia2moc6mqlef36hh5tqd85vjnjl4hfl</string>
+			</array>
+		</dict>
+	</array>
+    <key>CFBundleDisplayName</key>
+    <string>하루 한 줄</string>
+    <key>CFBundleName</key>
+    <string>하루 한 줄</string>
+</dict>
+</plist>

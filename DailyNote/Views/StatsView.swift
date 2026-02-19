@@ -29,10 +29,6 @@ struct StatsView: View {
                             .padding(.horizontal)
                         
                         // Yearly Calendar View
-                        // Assuming current year, or maybe last 12 months.
-                        // The user image shows "2026", a full year view.
-                        // Let's implement dynamic year viewing.
-                        
                         let year = calendar.component(.year, from: Date())
                         
                         Text(String(year))
@@ -61,6 +57,22 @@ struct StatsView: View {
             }
             .onAppear {
                 calculateStats()
+                
+                // --- DEBUGGING START ---
+                print("📝 [StatsView Debug] Total Entries: \(entries.count)")
+                let todayStr = formatDate(Date())
+                print("📅 Today System Date formatted: '\(todayStr)'")
+                
+                for entry in entries {
+                    print("   - Entry ID: '\(entry.id)', Length: \(entry.content.count)")
+                }
+                
+                if let _ = entries.first(where: { $0.id == todayStr }) {
+                     print("✅ Found matching entry for today!")
+                } else {
+                     print("❌ No matching entry found for today string '\(todayStr)'")
+                }
+                // --- DEBUGGING END ---
             }
         }
     }
@@ -116,12 +128,14 @@ struct StatsView: View {
     private func formatDate(_ date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.string(from: date)
     }
     
     private func getDate(from str: String) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         return formatter.date(from: str)
     }
 }
@@ -138,12 +152,12 @@ struct MonthView: View {
         VStack(alignment: .leading, spacing: 8) {
             Text(monthName)
                 .font(.headline)
-                .foregroundColor(.red) // Month title in red like the reference image
+                .foregroundColor(.red)
             
             // Weekday headers
             HStack {
                 ForEach(days, id: \.self) { day in
-                    Text(LocalizedStringKey(day)) // Localization key needs to be handled or just use fixed
+                    Text(LocalizedStringKey(day))
                         .font(.caption2)
                         .foregroundColor(.secondary)
                         .frame(maxWidth: .infinity)
@@ -164,8 +178,6 @@ struct MonthView: View {
             }
         }
         .padding()
-        //.background(Color(uiColor: .secondarySystemGroupedBackground))
-        //.cornerRadius(12)
     }
     
     // Helper to get localized month name
@@ -177,7 +189,15 @@ struct MonthView: View {
     private func getEntry(for date: Date) -> NoteEntry? {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
         let id = formatter.string(from: date)
+        
+        // Debug Log only for today to avoid spamming
+        if Calendar.current.isDateInToday(date) {
+            let found = entries.first(where: { $0.id == id })
+            print("🗓 [MonthView] Rendering Today (\(id)). Found Entry: \(found != nil)")
+        }
+        
         return entries.first(where: { $0.id == id })
     }
     
@@ -242,11 +262,6 @@ struct DayCell: View {
     
     private func getColor(for entry: NoteEntry) -> Color {
         let count = entry.content.count
-        // Red theme like the reference image? Or stick to Green?
-        // Reference image shows a red month header and red selected date.
-        // Let's stick to Green for "Grass" (contribution graph) but maybe style it round?
-        // User asked for "Activity Grass" (Jan-di) in "Calendar Form".
-        // Usually grass is green.
         if count > 100 { return Color.green.opacity(1.0) }
         if count > 50 { return Color.green.opacity(0.8) }
         if count > 20 { return Color.green.opacity(0.6) }
@@ -254,7 +269,6 @@ struct DayCell: View {
     }
 }
 
-// ... StatCard remains same ...
 struct StatCard: View {
     let title: String
     let value: String

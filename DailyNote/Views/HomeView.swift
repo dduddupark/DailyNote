@@ -7,6 +7,7 @@ struct HomeView: View {
     @State private var editingEntry: NoteEntry?
     @State private var deletingEntryId: String?
     @State private var showStats = false
+    @State private var showLogoutAlert = false
     
     var body: some View {
         ZStack {
@@ -129,6 +130,13 @@ struct HomeView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 HStack {
+                    NavigationLink {
+                        SearchView()
+                    } label: {
+                        Image(systemName: "magnifyingglass")
+                    }
+                    .accessibilityLabel(Text("search"))
+
                     Menu {
                         Button {
                             showStats = true
@@ -141,22 +149,35 @@ struct HomeView: View {
                         } label: {
                             Label("analyze_all", systemImage: "sparkles")
                         }
+                        
+                        Divider()
+                        
+                        Button(role: .destructive) {
+                            showLogoutAlert = true
+                        } label: {
+                            Label("logout", systemImage: "rectangle.portrait.and.arrow.right")
+                        }
                     } label: {
                         Image(systemName: "ellipsis.circle")
                     }
-                    
-                    NavigationLink {
-                        SearchView()
-                    } label: {
-                        Image(systemName: "magnifyingglass")
-                    }
-                    .accessibilityLabel(Text("search"))
                 }
             }
         }
         .sheet(isPresented: $showStats) {
-            StatsView(isPresented: $showStats, entries: viewModel.entries)
+            StatsView(isPresented: $showStats, entries: viewModel.allEntriesForStats)
         }
+        .alert("logout_confirm_title", isPresented: $showLogoutAlert) {
+             Button("cancel", role: .cancel) { }
+             Button("logout", role: .destructive) {
+                 AuthService.shared.signOut()
+             }
+         } message: {
+             if AuthService.shared.isAnonymous {
+                 Text("logout_confirm_message_guest")
+             } else {
+                 Text("logout_confirm_message")
+             }
+         }
         .sheet(item: $editingEntry) { entry in
             EntryEditorView(
                 entry: entry,
@@ -190,6 +211,11 @@ struct HomeView: View {
         }
         .onAppear {
             viewModel.loadData()
+            
+            if AuthService.shared.shouldShowLoginToast {
+                viewModel.showToast(message: NSLocalizedString("login_success", comment: ""))
+                AuthService.shared.shouldShowLoginToast = false
+            }
         }
     }
 }

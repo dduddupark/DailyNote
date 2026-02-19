@@ -29,3 +29,15 @@
 "count_unit" = "개";
 "close" = "닫기";
 "daily_reminder_message" = "오늘 한 줄 아직 안 썼어요 👀";
+
+"login_google" = "구글로 로그인";
+"login_guest" = "게스트로 시작하기";
+"login_fail_google" = "구글 로그인에 실패했습니다.";
+"login_fail_guest" = "게스트 로그인에 실패했습니다.";
+"login_success" = "로그인 되었습니다.";
+"error" = "오류";
+"app_subtitle" = "당신의 하루를 안전하게 기록하세요.";
+"logout" = "로그아웃";
+"logout_confirm_title" = "로그아웃";
+"logout_confirm_message" = "정말 로그아웃 하시겠습니까?";
+"logout_confirm_message_guest" = "게스트 로그인 상태입니다.\n로그아웃 시 모든 데이터가 삭제되며 복구할 수 없습니다.\n정말 로그아웃 하시겠습니까?";

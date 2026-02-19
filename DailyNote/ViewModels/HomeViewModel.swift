@@ -24,6 +24,13 @@ class HomeViewModel: ObservableObject {
         return dateFormatter.string(from: Date())
     }
     
+    var allEntriesForStats: [NoteEntry] {
+        if let today = todayEntry {
+            return entries + [today]
+        }
+        return entries
+    }
+    
     func loadData() {
         isLoading = true
         Task {
@@ -167,7 +174,7 @@ class HomeViewModel: ObservableObject {
         }
     }
 
-    private func showToast(message: String) {
+    func showToast(message: String) {
         self.toastMessage = message
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
             withAnimation {

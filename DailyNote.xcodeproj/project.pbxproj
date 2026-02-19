@@ -31,6 +31,7 @@
 		835E58E12F0759E000A1CF16 /* FirebaseRemoteConfig in Frameworks */ = {isa = PBXBuildFile; productRef = 835E58E02F0759E000A1CF16 /* FirebaseRemoteConfig */; };
 		835E58E32F0759E000A1CF16 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 835E58E22F0759E000A1CF16 /* FirebaseStorage */; };
 		835E58E52F0759E000A1CF16 /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 835E58E42F0759E000A1CF16 /* FirebaseStorageCombine-Community */; };
+		83AD60D12F46BB1A00C14ACB /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 83AD60D02F46BB1A00C14ACB /* GoogleSignIn */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,9 +57,22 @@
 		835E58912F07543500A1CF16 /* DailyNoteUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DailyNoteUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		83AD609B2F46B60300C14ACB /* Exceptions for "DailyNote" folder in "DailyNote" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 835E58792F07543400A1CF16 /* DailyNote */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		835E587C2F07543500A1CF16 /* DailyNote */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				83AD609B2F46B60300C14ACB /* Exceptions for "DailyNote" folder in "DailyNote" target */,
+			);
 			path = DailyNote;
 			sourceTree = "<group>";
 		};
@@ -94,6 +108,7 @@
 				835E58E32F0759E000A1CF16 /* FirebaseStorage in Frameworks */,
 				835E58E12F0759E000A1CF16 /* FirebaseRemoteConfig in Frameworks */,
 				835E58BB2F0759E000A1CF16 /* FirebaseAnalytics in Frameworks */,
+				83AD60D12F46BB1A00C14ACB /* GoogleSignIn in Frameworks */,
 				835E58DD2F0759E000A1CF16 /* FirebaseMessaging in Frameworks */,
 				835E58DB2F0759E000A1CF16 /* FirebaseMLModelDownloader in Frameworks */,
 				835E58DF2F0759E000A1CF16 /* FirebasePerformance in Frameworks */,
@@ -195,6 +210,7 @@
 				835E58E02F0759E000A1CF16 /* FirebaseRemoteConfig */,
 				835E58E22F0759E000A1CF16 /* FirebaseStorage */,
 				835E58E42F0759E000A1CF16 /* FirebaseStorageCombine-Community */,
+				83AD60D02F46BB1A00C14ACB /* GoogleSignIn */,
 			);
 			productName = DailyNote;
 			productReference = 835E587A2F07543500A1CF16 /* DailyNote.app */;
@@ -254,7 +270,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1640;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2620;
 				TargetAttributes = {
 					835E58792F07543400A1CF16 = {
 						CreatedOnToolsVersion = 16.4;
@@ -281,6 +297,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				835E58B52F0759E000A1CF16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				83AD60952F46B47000C14ACB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 835E587B2F07543500A1CF16 /* Products */;
@@ -361,6 +378,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -414,6 +432,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -424,6 +443,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -470,6 +490,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -485,6 +506,7 @@
 				DEVELOPMENT_TEAM = MB955445H3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DailyNote/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -514,6 +536,7 @@
 				DEVELOPMENT_TEAM = MB955445H3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = DailyNote/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -653,6 +676,14 @@
 				minimumVersion = 12.7.0;
 			};
 		};
+		83AD60952F46B47000C14ACB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.1.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -775,6 +806,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 835E58B52F0759E000A1CF16 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = "FirebaseStorageCombine-Community";
+		};
+		83AD60D02F46BB1A00C14ACB /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 83AD60952F46B47000C14ACB /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
