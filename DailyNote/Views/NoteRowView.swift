@@ -7,6 +7,7 @@ struct NoteRowView: View {
     let onDelete: () -> Void
     
     @State private var showTooltip = false
+    @State private var isExpanded = false
     
     var body: some View {
         HStack {
@@ -38,9 +39,29 @@ struct NoteRowView: View {
                         .font(.headline)
                 }
                 
-                Text(entry.content)
-                    .font(.body)
-                    .foregroundColor(.primary.opacity(0.90))
+                // Content with "read more" logic
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(entry.content)
+                        .font(.body)
+                        .foregroundColor(.primary.opacity(0.90))
+                        // If expanded, show all lines. If not, we limit the frame height.
+                        // We use lineLimit(nil) to ensure Text renders fully for measurement if needed, 
+                        // but here we rely on frame clipping for the "height > 100" effect.
+                        .frame(maxHeight: isExpanded ? nil : 100, alignment: .top)
+                        .clipped() 
+                    
+                    // Show button if content is long enough to likely exceed 100pt or has many lines.
+                    // Since we implemented a 100-char limit for NEW notes, this mostly affects old notes 
+                    // or notes with many newlines.
+                    if entry.content.count > 100 || entry.content.components(separatedBy: .newlines).count > 4 { 
+                         Button(action: { isExpanded.toggle() }) {
+                             Text(isExpanded ? "접기" : "더보기")
+                                 .font(.caption)
+                                 .foregroundColor(.blue)
+                         }
+                         .padding(.top, 2)
+                    }
+                }
                 
                 if let tags = entry.tags, !tags.isEmpty {
                     ScrollView(.horizontal, showsIndicators: false) {
