@@ -150,6 +150,12 @@ struct HomeView: View {
                             Label("analyze_all", systemImage: "sparkles")
                         }
                         
+                        Button {
+                            viewModel.injectTestData()
+                        } label: {
+                            Label("Inject Test Data", systemImage: "flask")
+                        }
+                        
                         Divider()
                         
                         Button(role: .destructive) {

@@ -19,11 +19,10 @@ struct LoginView: View {
                 
                 // App Logo/Title
                 VStack(spacing: 16) {
-                    Image(systemName: "note.text")
+                    Image("AppLogo")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
-                        .foregroundStyle(.tint)
+                        .frame(width: 120, height: 120)
                     
                     Text("app_name")
                         .font(.system(size: 32, weight: .bold))
