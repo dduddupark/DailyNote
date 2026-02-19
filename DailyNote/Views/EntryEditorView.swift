@@ -41,9 +41,14 @@ struct EntryEditorView: View {
                                 title = String(newValue.prefix(20))
                             }
                         }
-                    TextField("content_placeholder", text: $content, axis: .vertical)
+                TextField("content_placeholder", text: $content, axis: .vertical)
                         .lineLimit(5...15) // Limit max height to ensure scrolling
                         .frame(minHeight: 150) // Ensure reasonable size
+                        .onChange(of: content) { newValue in
+                            if newValue.count > 100 {
+                                content = String(newValue.prefix(100))
+                            }
+                        }
                 } header: {
                     Text(dateId)
                 }
@@ -63,6 +68,7 @@ struct EntryEditorView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("save") { onSave(title, content) }
                         .fontWeight(.semibold)
+                        .tint(Color.accentColor)
                 }
             }
             .interactiveDismissDisabled(isChanged)

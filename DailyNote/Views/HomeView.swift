@@ -37,6 +37,11 @@ struct HomeView: View {
                                 .focused($isTextFieldFocused)
                                 .disabled(!viewModel.canEditToday)
                                 .font(.system(size: 18, weight: .medium, design: .serif))
+                                .onChange(of: viewModel.todayContent) { newValue in
+                                    if newValue.count > 100 {
+                                        viewModel.todayContent = String(newValue.prefix(100))
+                                    }
+                                }
                             
                             if viewModel.canEditToday {
                                 HStack {
@@ -50,7 +55,7 @@ struct HomeView: View {
                                             .fontWeight(.semibold)
                                             .padding(.horizontal, 16)
                                             .padding(.vertical, 8)
-                                            .background(Color.blue)
+                                            .background(Color.accentColor)
                                             .foregroundColor(.white)
                                             .cornerRadius(20)
                                     }

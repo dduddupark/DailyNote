@@ -17,7 +17,7 @@ struct SearchView: View {
                         Image(systemName: "magnifyingglass")
                             .font(.system(size: 48))
                             .foregroundColor(.secondary)
-                        Text("no_search_results")
+                        Text("검색 결과가 없습니다")
                             .foregroundColor(.secondary)
                     }
                     .frame(maxHeight: .infinity)
