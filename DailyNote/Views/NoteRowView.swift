@@ -21,7 +21,7 @@ struct NoteRowView: View {
                         Button {
                             showTooltip.toggle()
                         } label: {
-                            Text(emotion)
+                            Text(verbatim: emotion)
                                 .font(.caption)
                         }
                         .buttonStyle(.plain)
@@ -44,10 +44,11 @@ struct NoteRowView: View {
                     Text(entry.content)
                         .font(.body)
                         .foregroundColor(.primary.opacity(0.90))
+                        .multilineTextAlignment(.leading) 
                         // If expanded, show all lines. If not, we limit the frame height.
                         // We use lineLimit(nil) to ensure Text renders fully for measurement if needed, 
                         // but here we rely on frame clipping for the "height > 100" effect.
-                        .frame(maxHeight: isExpanded ? nil : 100, alignment: .top)
+                        .frame(maxWidth: .infinity, maxHeight: isExpanded ? nil : 100, alignment: .topLeading)
                         .clipped() 
                     
                     // Show button if content is long enough to likely exceed 100pt or has many lines.
@@ -67,7 +68,7 @@ struct NoteRowView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack {
                             ForEach(tags, id: \.self) { tag in
-                                Text(tag)
+                                Text(LocalizedStringKey(tag))
                                     .font(.caption2)
                                     .fontWeight(.medium)
                                     .padding(.horizontal, 8)
@@ -105,5 +106,9 @@ struct NoteRowView: View {
         .background(Color(uiColor: .secondarySystemGroupedBackground))
         .cornerRadius(12)
         .padding(.horizontal)
+        .onAppear {
+            print("emotion = \(entry.emotion ?? "nil")")
+            print("tags = \(entry.tags ?? [])")
+        }
     }
 }

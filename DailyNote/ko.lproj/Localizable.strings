@@ -30,6 +30,7 @@
 "close" = "닫기";
 "daily_reminder_message" = "오늘 한 줄 아직 안 썼어요 👀";
 "text_count" = "글자 수: %d/100";
+"note_detail_title" = "기록 상세";
 
 "login_google" = "구글로 로그인";
 "login_guest" = "게스트로 시작하기";
@@ -42,3 +43,29 @@
 "logout_confirm_title" = "로그아웃";
 "logout_confirm_message" = "정말 로그아웃 하시겠습니까?";
 "logout_confirm_message_guest" = "게스트 로그인 상태입니다.\n로그아웃 시 모든 데이터가 삭제되며 복구할 수 없습니다.\n정말 로그아웃 하시겠습니까?";
+
+/* Tags */
+"tag_exercise" = "🏋️‍♀️ 운동";
+"tag_running" = "🏃 러닝";
+"tag_reading" = "📚 독서";
+"tag_study" = "📝 공부";
+"tag_movie" = "🎬 영화";
+"tag_meeting" = "👥 만남";
+"tag_work" = "💼 업무";
+"tag_dining" = "🍻 회식";
+"tag_businesstrip" = "✈️ 출장";
+"tag_travel" = "✈️ 여행";
+"tag_cafe" = "☕️ 카페";
+"tag_health" = "🍎 건강";
+"tag_idea" = "💡 아이디어";
+"tag_plan" = "📅 계획";
+"tag_book" = "📖 책";
+"tag_walk" = "🌿 산책";
+
+/* Toast Messages */
+"save_failed" = "저장에 실패했습니다.";
+"delete_failed" = "삭제에 실패했습니다.";
+"test_data_injected" = "테스트 데이터가 주입되었습니다.";
+"fetch_error" = "불러오기 에러: %@";
+"analysis_complete" = "분석 완료: %d개 업데이트 됨";
+"delete_success" = "기록이 삭제되었습니다.";

@@ -81,7 +81,7 @@ class HomeViewModel: ObservableObject {
             self.entries = unique
         } catch {
             print("Fetch entries error: \(error.localizedDescription)")
-            showToast(message: "Fetch Error: \(error.localizedDescription)")
+            showToast(message: String(format: NSLocalizedString("fetch_error", comment: ""), error.localizedDescription))
         }
     }
     
@@ -207,7 +207,7 @@ class HomeViewModel: ObservableObject {
                     }
                 }
             }
-            showToast(message: "Analysis Complete: \(updatedCount) updated")
+            showToast(message: String(format: NSLocalizedString("analysis_complete", comment: ""), updatedCount))
             await fetchAllEntries()
             isLoading = false
         }
@@ -264,8 +264,19 @@ class HomeViewModel: ObservableObject {
                 "날씨가 좋아서 공원을 걸었다. 바람이 시원하고 햇살이 따뜻했다."
             ]
             
-            let emotions = ["happy", "sad", "neutral", "excited", "tired"]
-            let tagsList = [["exercise", "health"], ["food", "cafe"], ["work", "idea"], ["travel", "plan"], ["reading", "book"]]
+            let emotions = ["😊", "😊", "😆", "😐", "😊", "😐", "😆", "😊", "😩", "😊"]
+            let tagsList = [
+                ["tag_exercise", "tag_health"], // 0. 운동
+                ["tag_cafe", "tag_dining"], // 1. 카페
+                ["tag_meeting", "tag_work", "tag_idea"], // 2. 미팅
+                ["tag_travel", "tag_plan"], // 3. 주말 여행
+                ["tag_reading", "tag_book"], // 4. 책
+                ["tag_cafe"], // 5. 비 오는 날, 차 한 잔
+                ["tag_meeting"], // 6. 친구 만남
+                ["tag_work", "tag_plan"], // 7. 새로운 일
+                ["tag_plan"], // 8. 잠 안오는 밤
+                ["tag_walk"] // 9. 공원 산책
+            ]
 
             for (index, date) in dates.enumerated() {
                 let formatter = DateFormatter()
@@ -298,7 +309,7 @@ class HomeViewModel: ObservableObject {
             
             await fetchAllEntries()
             isLoading = false
-            showToast(message: "Test Data Injected")
+            showToast(message: "test_data_injected")
         }
     }
 }

@@ -53,29 +53,44 @@ class NoteAnalysisService {
         // Pre-process text to handle overlapping keywords
         // If "산책" is present, we temporarily remove it to avoid matching "책"
         var textForTagging = lowerText
-        if lowerText.contains("산책") {
-            tags.append("🌿 산책")
+        if lowerText.contains("산책") || lowerText.contains("walk") {
+            tags.append("tag_walk")
             textForTagging = textForTagging.replacingOccurrences(of: "산책", with: "")
+                           .replacingOccurrences(of: "walk", with: "")
         }
 
         // Keywords mapping
         let keywords: [String: String] = [
-            "운동": "🏋️‍♀️ 운동",
-            "헬스": "🏋️‍♀️ 운동",
-            "러닝": "🏃 러닝",
-            "독서": "📚 독서",
-            "책": "📚 독서", // Now safe from "산책"
-            "공부": "📝 공부",
-            "스터디": "📝 공부",
-            "영화": "🎬 영화",
-            "친구": "👥 만남",
-            "회식": "🍻 회식",
-            "회의": "💼 업무",
-            "업무": "💼 업무",
-            "출장": "✈️ 출장",
-            "여행": "✈️ 여행",
-            "커피": "☕️ 카페",
-            "카페": "☕️ 카페"
+            "운동": "tag_exercise",
+            "헬스": "tag_exercise",
+            "러닝": "tag_running",
+            "독서": "tag_reading",
+            "책": "tag_reading", // Now safe from "산책"
+            "공부": "tag_study",
+            "스터디": "tag_study",
+            "영화": "tag_movie",
+            "친구": "tag_meeting",
+            "회식": "tag_dining",
+            "회의": "tag_work",
+            "업무": "tag_work",
+            "출장": "tag_businesstrip",
+            "여행": "tag_travel",
+            "커피": "tag_cafe",
+            "카페": "tag_cafe",
+            
+            // English overrides (for tests / future scaling)
+            "exercise": "tag_exercise",
+            "health": "tag_exercise",
+            "running": "tag_running",
+            "reading": "tag_reading",
+            "book": "tag_reading",
+            "study": "tag_study",
+            "movie": "tag_movie",
+            "meeting": "tag_meeting",
+            "work": "tag_work",
+            "travel": "tag_travel",
+            "cafe": "tag_cafe",
+            "food": "tag_dining"
         ]
         
         for (keyword, tag) in keywords {
@@ -87,8 +102,8 @@ class NoteAnalysisService {
         }
         
         // Simple heuristic for future planning
-        if lowerText.contains("내일") || lowerText.contains("계획") {
-            tags.append("📅 계획")
+        if lowerText.contains("내일") || lowerText.contains("계획") || lowerText.contains("tomorrow") || lowerText.contains("plan") {
+            tags.append("tag_plan")
         }
         
         return tags

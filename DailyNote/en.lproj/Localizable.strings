@@ -30,3 +30,30 @@
 "close" = "Close";
 "daily_reminder_message" = "You haven't written your line today 👀";
 "text_count" = "Text count: %d/100";
+"note_detail_title" = "Note Detail";
+
+/* Tags */
+"tag_exercise" = "🏋️‍♀️ Exercise";
+"tag_running" = "🏃 Running";
+"tag_reading" = "📚 Reading";
+"tag_study" = "📝 Study";
+"tag_movie" = "🎬 Movie";
+"tag_meeting" = "👥 Meeting";
+"tag_work" = "💼 Work";
+"tag_dining" = "🍻 Dining";
+"tag_businesstrip" = "✈️ Business Trip";
+"tag_travel" = "✈️ Travel";
+"tag_cafe" = "☕️ Cafe";
+"tag_health" = "🍎 Health";
+"tag_idea" = "💡 Idea";
+"tag_plan" = "📅 Plan";
+"tag_book" = "📖 Book";
+"tag_walk" = "🌿 Walk";
+
+/* Toast Messages */
+"save_failed" = "Save failed.";
+"delete_failed" = "Delete failed.";
+"test_data_injected" = "Test data injected.";
+"fetch_error" = "Fetch Error: %@";
+"analysis_complete" = "Analysis Complete: %d updated";
+"delete_success" = "Record deleted successfully.";

@@ -99,11 +99,16 @@ struct HomeView: View { // ✅ @Composable 함수 역할
                         } else {
                             LazyVStack(alignment: .leading, spacing: 12) {
                                 ForEach(viewModel.entries) { entry in
-                                    NoteRowView(
-                                        entry: entry,
-                                        onEdit: { editingEntry = entry },
-                                        onDelete: { deletingEntryId = entry.id }
-                                    )
+                                    NavigationLink {
+                                        NoteDetailView(entry: entry)
+                                    } label: {
+                                        NoteRowView(
+                                            entry: entry,
+                                            onEdit: { editingEntry = entry },
+                                            onDelete: { deletingEntryId = entry.id }
+                                        )
+                                        .buttonStyle(.plain)
+                                    }
                                 }
                             }
                         }
