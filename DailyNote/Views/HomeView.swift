@@ -1,6 +1,7 @@
 import SwiftUI
 
-struct HomeView: View {
+struct HomeView: View { // ✅ @Composable 함수 역할
+    // ✅ ViewModel을 선언하고 관찰(Observe)합니다. (viewModel.todayTitle이 변하면 뷰가 재구성됨)
     @StateObject private var viewModel = HomeViewModel()
     @FocusState private var isTextFieldFocused: Bool
     @FocusState private var isTitleFieldFocused: Bool
@@ -10,10 +11,10 @@ struct HomeView: View {
     @State private var showLogoutAlert = false
     
     var body: some View {
-        ZStack {
+        ZStack { // ✅ Compose의 Box 
             Color(uiColor: .systemGroupedBackground).ignoresSafeArea()
             
-            ScrollView {
+            ScrollView { // ✅ ScrollableColumn (Lazy 안쓸때)
                 VStack(alignment: .leading, spacing: 24) {
                     // Today's Entry Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -42,7 +43,14 @@ struct HomeView: View {
                                     if newValue.count > 100 {
                                         viewModel.todayContent = String(newValue.prefix(100))
                                     }
+                                    viewModel.updateTextCount(text: newValue)
                                 }
+
+                            Text(String(format: NSLocalizedString("text_count", comment: ""), viewModel.textCount))
+                                .font(.system(size: 10, weight: .light, design: .serif))
+                                .foregroundColor(viewModel.textCount > 100 ? Color.red : Color.gray)
+                                .frame(maxWidth: .infinity, alignment:.trailing)
+            
                             
                             if viewModel.canEditToday {
                                 HStack {
@@ -215,7 +223,7 @@ struct HomeView: View {
         } message: {
             Text("delete_confirm_message")
         }
-        .onAppear {
+        .onAppear { // ✅ Compose의 LaunchedEffect(Unit) 과 비슷하게, 뷰가 그려질 때 
             viewModel.loadData()
             
             if AuthService.shared.shouldShowLoginToast {

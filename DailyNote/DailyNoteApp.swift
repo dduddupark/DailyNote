@@ -15,7 +15,9 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 
 @main
 struct DailyNoteApp: App {
-    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    // Application 클래스처럼 초기화(Firebase 등) 역할
+    @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate 
+    //// 전역 싱글톤 객체
     @StateObject private var authService = AuthService.shared
     @State private var isSplashFinished: Bool = false
     @Environment(\.scenePhase) private var scenePhase // Monitor app state

@@ -2,8 +2,9 @@ import Foundation
 import Combine
 import SwiftUI
 
-@MainActor
+@MainActor // ✅ Android의 Dispatchers.Main과 같습니다. UI 스레드에서 돌아가도록 보장합니다.
 class HomeViewModel: ObservableObject {
+    // ✅ Android의 StateFlow 또는 mutableStateOf() 와 같습니다. UI가 구독(Observing)하는 변수
     @Published var entries: [NoteEntry] = []
     @Published var todayTitle: String = ""
     @Published var todayContent: String = ""
@@ -11,6 +12,7 @@ class HomeViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var isTodayEntryExisted: Bool = false
     @Published var toastMessage: String? = nil
+    @Published var textCount: Int = 0
     
     private var todayEntry: NoteEntry?
     private let dateFormatter: DateFormatter = {
@@ -33,8 +35,8 @@ class HomeViewModel: ObservableObject {
     
     func loadData() {
         isLoading = true
-        Task {
-            await fetchTodayEntry()
+        Task { // ✅ Android의 viewModelScope.launch { } 와 같습니다. (비동기 처리)
+            await fetchTodayEntry() // ✅ suspend 함수 호출 시 사용하는 키워드와 같습니다.
             await fetchAllEntries()
             isLoading = false
         }
@@ -209,6 +211,10 @@ class HomeViewModel: ObservableObject {
             await fetchAllEntries()
             isLoading = false
         }
+    }
+
+    func updateTextCount(text: String) {
+        self.textCount = text.count
     }
 
     func injectTestData() {

@@ -29,3 +29,4 @@
 "count_unit" = "";
 "close" = "Close";
 "daily_reminder_message" = "You haven't written your line today 👀";
+"text_count" = "Text count: %d/100";
